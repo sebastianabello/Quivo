@@ -25,7 +25,7 @@ class BookingItemEntity {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "reservation_id")
-    private BookingEntity order;
+    private BookingEntity reservation;
 
     public Long getId() {
         return id;
@@ -67,11 +67,11 @@ class BookingItemEntity {
         this.guest = guest;
     }
 
-    public BookingEntity getOrder() {
-        return order;
+    public BookingEntity getReservation() {
+        return reservation;
     }
 
-    public void setOrder(BookingEntity order) {
-        this.order = order;
+    public void setReservation(BookingEntity reservation) {
+        this.reservation = reservation;
     }
 }

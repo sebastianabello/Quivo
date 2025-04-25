@@ -96,6 +96,14 @@ class BookingEntity {
         this.customer = customer;
     }
 
+    public Check getCheckDate() {
+        return checkDate;
+    }
+
+    public void setCheckDate(Check checkDate) {
+        this.checkDate = checkDate;
+    }
+
     public OrderStatus getStatus() {
         return status;
     }
