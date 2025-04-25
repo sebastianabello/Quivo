@@ -7,7 +7,6 @@ public class RoomMapper {
                 roomEntity.getName(),
                 roomEntity.getDescription(),
                 roomEntity.getImageUrl(),
-                roomEntity.getPrice()
-        );
+                roomEntity.getPrice());
     }
 }

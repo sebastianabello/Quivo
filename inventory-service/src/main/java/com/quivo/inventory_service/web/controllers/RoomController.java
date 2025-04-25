@@ -22,5 +22,4 @@ class RoomController {
     PagedResult<Room> getRooms(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
         return roomService.getRooms(pageNo);
     }
-
 }

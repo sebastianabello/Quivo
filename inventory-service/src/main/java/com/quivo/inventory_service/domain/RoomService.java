@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class RoomService  {
+public class RoomService {
     private final RoomRepository roomRepository;
     private final ApplicationProperties applicationProperties;
 
@@ -33,8 +33,6 @@ public class RoomService  {
                 roomsPage.isFirst(),
                 roomsPage.isLast(),
                 roomsPage.hasNext(),
-                roomsPage.hasPrevious()
-        );
-
+                roomsPage.hasPrevious());
     }
 }

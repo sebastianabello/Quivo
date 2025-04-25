@@ -32,8 +32,7 @@ class RoomEntity {
 
     private String imageUrl;
 
-    @NotNull(message = "Room price is required")
-    @DecimalMin("0.1")
+    @NotNull(message = "Room price is required") @DecimalMin("0.1")
     @Column(nullable = false)
     private BigDecimal price;
 
