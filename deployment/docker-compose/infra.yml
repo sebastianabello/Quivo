@@ -39,18 +39,18 @@ services:
           memory: 500m
 
   quivo-rabbitmq:
-    image: rabbitmq:4.0.9-alpine
+    image: rabbitmq:4.1.0-management-alpine
     container_name: quivo-rabbitmq
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     ports:
-      - "15672:15672" # RabbitMQ Management UI
       - "5672:5672"   # RabbitMQ AMQP protocol
+      - "15672:15672" # RabbitMQ Management UI
     healthcheck:
-      test: [ "CMD-SHELL", "rabbitmq-diagnostics -q check_running" ]
+      test: rabbitmq-diagnostics check_port_connectivity
       interval: 10s
-      timeout: 5s
+      timeout: 10s
       retries: 5
     deploy:
       resources:
