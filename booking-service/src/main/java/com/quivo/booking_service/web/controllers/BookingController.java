@@ -31,5 +31,4 @@ public class BookingController {
         log.info("Creating booking for user {}", username);
         return orderService.createBooking(username, request);
     }
-
 }

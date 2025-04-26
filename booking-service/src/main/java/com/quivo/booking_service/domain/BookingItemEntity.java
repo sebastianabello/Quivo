@@ -1,11 +1,10 @@
 package com.quivo.booking_service.domain;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "reservations_items")
+@Table(name = "reservation_items")
 class BookingItemEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservation_item_id_generator")

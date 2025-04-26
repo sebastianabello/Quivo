@@ -3,7 +3,6 @@ package com.quivo.booking_service.domain;
 import com.quivo.booking_service.domain.model.BookingItem;
 import com.quivo.booking_service.domain.model.CreateBookingRequest;
 import com.quivo.booking_service.domain.model.OrderStatus;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -23,6 +22,7 @@ public class BookingMapper {
             bookingItemEntity.setCode(item.code());
             bookingItemEntity.setName(item.name());
             bookingItemEntity.setPrice(item.price());
+            bookingItemEntity.setGuest(item.guest());
             bookingItemEntity.setReservation(bookingEntity);
             bookingItemEntities.add(bookingItemEntity);
         }

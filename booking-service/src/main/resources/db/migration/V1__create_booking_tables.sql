@@ -10,8 +10,8 @@ create table reservations (
     customer_name        text not null,
     customer_email       text not null,
     customer_phone       text not null,
-    check_in_date        date not null,
-    check_out_date       date not null,
+    check_in_date        text not null,
+    check_out_date       text not null,
     status               text not null,
     comments             text,
     created_at           timestamp default now(),
@@ -19,12 +19,12 @@ create table reservations (
     primary key (id)
 );
 
-create table reservations_items(
+create table reservation_items (
     id       bigint default nextval('reservation_item_id_seq') not null,
     code     text not null,
     name     text not null,
     price    numeric not null,
     guest    integer not null,
     primary key (id),
-    reservations_id bigint  not null references reservations (id)
+    reservation_id bigint  not null references reservations (id)
 );

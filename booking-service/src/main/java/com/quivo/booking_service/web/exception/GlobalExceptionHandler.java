@@ -1,12 +1,11 @@
 package com.quivo.booking_service.web.exception;
 
+import com.quivo.booking_service.domain.BookingNotFoundException;
+import com.quivo.booking_service.domain.InvalidBookingException;
 import java.net.URI;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.quivo.booking_service.domain.BookingNotFoundException;
-import com.quivo.booking_service.domain.InvalidBookingException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -78,5 +77,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setProperty("timestamp", Instant.now());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(problemDetail);
     }
-
 }

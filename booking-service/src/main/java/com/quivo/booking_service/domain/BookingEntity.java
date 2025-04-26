@@ -4,10 +4,8 @@ import com.quivo.booking_service.domain.model.Check;
 import com.quivo.booking_service.domain.model.Customer;
 import com.quivo.booking_service.domain.model.OrderStatus;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "reservations")
@@ -30,18 +28,17 @@ class BookingEntity {
     @Embedded
     @AttributeOverrides(
             value = {
-                    @AttributeOverride(name = "name", column = @Column(name = "customer_name")),
-                    @AttributeOverride(name = "email", column = @Column(name = "customer_email")),
-                    @AttributeOverride(name = "phone", column = @Column(name = "customer_phone")),
+                @AttributeOverride(name = "name", column = @Column(name = "customer_name")),
+                @AttributeOverride(name = "email", column = @Column(name = "customer_email")),
+                @AttributeOverride(name = "phone", column = @Column(name = "customer_phone")),
             })
     private Customer customer;
-
 
     @Embedded
     @AttributeOverrides(
             value = {
-                    @AttributeOverride(name = "in_date", column = @Column(name = "check_in_date")),
-                    @AttributeOverride(name = "out_date", column = @Column(name = "check_out_date"))
+                @AttributeOverride(name = "in_date", column = @Column(name = "check_in_date")),
+                @AttributeOverride(name = "out_date", column = @Column(name = "check_out_date"))
             })
     private Check checkDate;
 

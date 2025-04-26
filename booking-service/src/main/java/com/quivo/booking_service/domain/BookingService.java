@@ -26,5 +26,4 @@ public class BookingService {
         log.info("Booking created: {}", savedBooking.getReservationNumber());
         return new CreateBookingResponse(savedBooking.getReservationNumber());
     }
-
 }
