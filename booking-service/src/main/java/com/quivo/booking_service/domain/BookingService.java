@@ -14,12 +14,15 @@ public class BookingService {
     private static final Logger log = LoggerFactory.getLogger(BookingService.class);
 
     private final BookingRepository bookingRepository;
+    private final BookingValidator roomValidator;
 
-    public BookingService(BookingRepository bookingRepository) {
+    BookingService(BookingRepository bookingRepository, BookingValidator roomValidator) {
         this.bookingRepository = bookingRepository;
+        this.roomValidator = roomValidator;
     }
 
     public CreateBookingResponse createBooking(String username, CreateBookingRequest request) {
+        roomValidator.validate(request);
         BookingEntity bookingEntity = BookingMapper.convertToEntity(request);
         bookingEntity.setUsername(username);
         BookingEntity savedBooking = this.bookingRepository.save(bookingEntity);

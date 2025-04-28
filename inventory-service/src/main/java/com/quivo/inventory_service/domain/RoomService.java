@@ -8,6 +8,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class RoomService {
@@ -35,4 +37,9 @@ public class RoomService {
                 roomsPage.hasNext(),
                 roomsPage.hasPrevious());
     }
+
+    public Optional<Room> getRoomByCode(String code) {
+        return roomRepository.findByCode(code).map(RoomMapper::toRoom);
+    }
+
 }
