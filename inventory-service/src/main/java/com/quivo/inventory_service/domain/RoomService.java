@@ -1,14 +1,13 @@
 package com.quivo.inventory_service.domain;
 
 import com.quivo.inventory_service.ApplicationProperties;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -41,5 +40,4 @@ public class RoomService {
     public Optional<Room> getRoomByCode(String code) {
         return roomRepository.findByCode(code).map(RoomMapper::toRoom);
     }
-
 }

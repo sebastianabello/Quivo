@@ -23,9 +23,9 @@ class RoomController {
 
     @GetMapping("/{code}")
     ResponseEntity<Room> getRoomByCode(@PathVariable("code") String code) {
-        return roomService.getRoomByCode(code)
+        return roomService
+                .getRoomByCode(code)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-
 }

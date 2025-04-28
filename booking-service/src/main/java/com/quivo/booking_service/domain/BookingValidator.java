@@ -4,11 +4,10 @@ import com.quivo.booking_service.client.Inventory.Room;
 import com.quivo.booking_service.client.Inventory.RoomServiceClient;
 import com.quivo.booking_service.domain.model.BookingItem;
 import com.quivo.booking_service.domain.model.CreateBookingRequest;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
 
 @Component
 public class BookingValidator {
@@ -23,7 +22,8 @@ public class BookingValidator {
     void validate(CreateBookingRequest request) {
         Set<BookingItem> items = request.items();
         for (BookingItem item : items) {
-            Room room = roomServiceClient.getRoomByCode(item.code())
+            Room room = roomServiceClient
+                    .getRoomByCode(item.code())
                     .orElseThrow(() -> new InvalidBookingException("Invalid Product code:" + item.code()));
             if (item.price().compareTo(room.price()) != 0) {
                 log.error("Invalid booking price:{}", item.price());
