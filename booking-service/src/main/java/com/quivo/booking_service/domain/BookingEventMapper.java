@@ -1,8 +1,6 @@
 package com.quivo.booking_service.domain;
 
-import com.quivo.booking_service.domain.model.BookingCreateEvent;
-import com.quivo.booking_service.domain.model.BookingItem;
-
+import com.quivo.booking_service.domain.model.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -17,15 +15,44 @@ public class BookingEventMapper {
                 getBookingItems(bookingEntity),
                 bookingEntity.getCustomer(),
                 bookingEntity.getCheckDate(),
-                LocalDateTime.now()
-        )
-        ;
+                LocalDateTime.now());
+    }
+
+    static BookingReservedEvent buildBookingReservedEvent(BookingEntity bookingEntity) {
+        return new BookingReservedEvent(
+                UUID.randomUUID().toString(),
+                bookingEntity.getReservationNumber(),
+                getBookingItems(bookingEntity),
+                bookingEntity.getCustomer(),
+                bookingEntity.getCheckDate(),
+                LocalDateTime.now());
+    }
+
+    static BookingCancelledEvent buildBookingCancelledEvent(BookingEntity bookingEntity, String reason) {
+        return new BookingCancelledEvent(
+                UUID.randomUUID().toString(),
+                bookingEntity.getReservationNumber(),
+                getBookingItems(bookingEntity),
+                bookingEntity.getCustomer(),
+                bookingEntity.getCheckDate(),
+                reason,
+                LocalDateTime.now());
+    }
+
+    static BookingErrorEvent buildBookingErrorEvent(BookingEntity order, String reason) {
+        return new BookingErrorEvent(
+                UUID.randomUUID().toString(),
+                order.getReservationNumber(),
+                getBookingItems(order),
+                order.getCustomer(),
+                order.getCheckDate(),
+                reason,
+                LocalDateTime.now());
     }
 
     private static Set<BookingItem> getBookingItems(BookingEntity bookingEntity) {
         return bookingEntity.getReservationItems().stream()
-                .map(item -> new BookingItem(item.getCode(),
-                        item.getName(), item.getPrice(), item.getGuest()))
+                .map(item -> new BookingItem(item.getCode(), item.getName(), item.getPrice(), item.getGuest()))
                 .collect(Collectors.toSet());
     }
 }

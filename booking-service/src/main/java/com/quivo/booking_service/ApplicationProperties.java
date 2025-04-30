@@ -7,6 +7,6 @@ public record ApplicationProperties(
         String inventoryServiceUrl,
         String bookingEventsExchange,
         String newBookingsQueue,
-        String deliveredBookingsQueue,
+        String reservedBookingsQueue,
         String cancelledBookingsQueue,
         String errorBookingsQueue) {}

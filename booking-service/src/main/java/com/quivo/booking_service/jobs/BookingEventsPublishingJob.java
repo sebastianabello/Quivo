@@ -1,12 +1,13 @@
 package com.quivo.booking_service.jobs;
 
 import com.quivo.booking_service.domain.BookingEventService;
+import java.time.Instant;
+import net.javacrumbs.shedlock.core.LockAssert;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.time.Instant;
 
 @Component
 public class BookingEventsPublishingJob {
@@ -20,8 +21,9 @@ public class BookingEventsPublishingJob {
     }
 
     @Scheduled(cron = "*/5 * * * * *")
-
-    public void publishOrderEvents() {
+    @SchedulerLock(name = "publishBookingEvents")
+    public void publishBookingEvents() {
+        LockAssert.assertLocked();
         log.info("Publishing order events at {}", Instant.now());
         bookingEventService.publishBookingEvents();
     }

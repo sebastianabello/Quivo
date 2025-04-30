@@ -1,18 +1,20 @@
 package com.quivo.booking_service.domain;
 
+import com.quivo.booking_service.domain.model.BookingDTO;
 import com.quivo.booking_service.domain.model.BookingItem;
+import com.quivo.booking_service.domain.model.BookingStatus;
 import com.quivo.booking_service.domain.model.CreateBookingRequest;
-import com.quivo.booking_service.domain.model.OrderStatus;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BookingMapper {
 
     static BookingEntity convertToEntity(CreateBookingRequest request) {
         BookingEntity bookingEntity = new BookingEntity();
         bookingEntity.setReservationNumber(UUID.randomUUID().toString());
-        bookingEntity.setStatus(OrderStatus.NEW);
+        bookingEntity.setStatus(BookingStatus.NEW);
         bookingEntity.setCustomer(request.customer());
         bookingEntity.setCheckDate(request.checkDate());
 
@@ -28,5 +30,21 @@ public class BookingMapper {
         }
         bookingEntity.setReservationItems(bookingItemEntities);
         return bookingEntity;
+    }
+
+    static BookingDTO convertToDTO(BookingEntity bookingEntity) {
+        Set<BookingItem> items = bookingEntity.getReservationItems().stream()
+                .map(item -> new BookingItem(item.getCode(), item.getName(), item.getPrice(), item.getGuest()))
+                .collect(Collectors.toSet());
+
+        return new BookingDTO(
+                bookingEntity.getReservationNumber(),
+                bookingEntity.getUsername(),
+                items,
+                bookingEntity.getCustomer(),
+                bookingEntity.getCheckDate(),
+                bookingEntity.getStatus(),
+                bookingEntity.getComments(),
+                bookingEntity.getCreatedAt());
     }
 }

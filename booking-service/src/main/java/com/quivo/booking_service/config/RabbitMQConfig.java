@@ -39,12 +39,12 @@ class RabbitMQConfig {
 
     @Bean
     Queue deliveredBookingsQueue() {
-        return QueueBuilder.durable(properties.deliveredBookingsQueue()).build();
+        return QueueBuilder.durable(properties.reservedBookingsQueue()).build();
     }
 
     @Bean
     Binding deliveredBookingsBinding() {
-        return BindingBuilder.bind(deliveredBookingsQueue()).to(exchange()).with(properties.deliveredBookingsQueue());
+        return BindingBuilder.bind(deliveredBookingsQueue()).to(exchange()).with(properties.reservedBookingsQueue());
     }
 
     @Bean

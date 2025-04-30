@@ -2,7 +2,6 @@ package com.quivo.booking_service.domain;
 
 import com.quivo.booking_service.domain.model.BookingEventType;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity

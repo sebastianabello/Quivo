@@ -1,8 +1,8 @@
 package com.quivo.booking_service.domain;
 
+import com.quivo.booking_service.domain.model.BookingStatus;
 import com.quivo.booking_service.domain.model.Check;
 import com.quivo.booking_service.domain.model.Customer;
-import com.quivo.booking_service.domain.model.OrderStatus;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -43,7 +43,7 @@ class BookingEntity {
     private Check checkDate;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private BookingStatus status;
 
     private String comments;
 
@@ -101,11 +101,11 @@ class BookingEntity {
         this.checkDate = checkDate;
     }
 
-    public OrderStatus getStatus() {
+    public BookingStatus getStatus() {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
+    public void setStatus(BookingStatus status) {
         this.status = status;
     }
 
