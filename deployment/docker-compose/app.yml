@@ -1,0 +1,46 @@
+name: 'quivo'
+services:
+  inventory-service:
+    image: quivo-inventory-service
+    container_name: inventory-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_URL=jdbc:postgresql://inventory-db:5432/postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+    depends_on:
+      inventory-db:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  booking-service:
+    image: quivo-booking-service
+    container_name: booking-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - BOOKINGS_INVENTORY_SERVICE_URL=http://inventory-service:8081
+      - DB_URL=jdbc:postgresql://booking-db:5432/postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - RABBITMQ_HOST=quivo-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+    depends_on:
+      booking-db:
+        condition: service_healthy
+      quivo-rabbitmq:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700m

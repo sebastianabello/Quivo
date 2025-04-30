@@ -17,7 +17,8 @@ interface BookingRepository extends JpaRepository<BookingEntity, Long> {
             "select new com.quivo.booking_service.domain.model.BookingSummary(b.reservationNumber, b.status) from BookingEntity b where b.username = :username")
     List<BookingSummary> findByUsername(String username);
 
-    @Query("select distinct b from BookingEntity b left join fetch b.reservationItems where b.username = :username and b.reservationNumber = :reservationNumber")
+    @Query(
+            "select distinct b from BookingEntity b left join fetch b.reservationItems where b.username = :username and b.reservationNumber = :reservationNumber")
     Optional<BookingEntity> findByUsernameAndReservationNumber(String username, String reservationNumber);
 
     default void updateBookingStatus(String reservationNumber, BookingStatus status) {
