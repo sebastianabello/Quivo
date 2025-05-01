@@ -59,6 +59,8 @@ services:
       - RABBITMQ_PASSWORD=guest
       - MAIL_HOST=smtp.gmail.com
       - MAIL_PORT=587
+      - MAIL_USERNAME=?
+      - MAIL_PASSWORD=?
     ports:
       - "8083:8083"
     restart: unless-stopped
@@ -70,7 +72,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 700
+          memory: 700m
 
   api-gateway:
     image: jabell0/quivo-api-gateway
