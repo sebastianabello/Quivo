@@ -28,16 +28,34 @@ public class NotificationService {
     public void sendBookingCreatedNotification(BookingCreateEvent event) {
         String message =
                 """
-                ===================================================
-                Order Created Notification
-                ----------------------------------------------------
-                Dear %s,
-                Your order with orderNumber: %s has been created successfully.
-
-                Thanks,
-                BookStore Team
-                ===================================================
-                """
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Procesando reserva</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
+                <table width="100%%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #4CAF50; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h2>Procesando reserva</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p>Estimad@ <strong>%s</strong>,</p>
+                            <p>Nos complace hacerle saber que su reserva esta siendo procesada.</p>
+                            <p><strong>Numero de reserva:</strong> %s</p>
+                            <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
+                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <br>
+                            <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+            """
                         .formatted(event.customer().name(), event.reservationNumber());
         log.info("\n{}", message);
         sendEmail(event.customer().email(), "Order Created Notification", message);
@@ -46,16 +64,34 @@ public class NotificationService {
     public void sendBookingReservedNotification(BookingReservedEvent event) {
         String message =
                 """
-                ===================================================
-                Order Delivered Notification
-                ----------------------------------------------------
-                Dear %s,
-                Your order with orderNumber: %s has been delivered successfully.
-
-                Thanks,
-                BookStore Team
-                ===================================================
-                """
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Reserva confirmada</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
+                <table width="100%%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #4CAF50; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h2>Reserva confirmada</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p>Estimad@ <strong>%s</strong>,</p>
+                            <p>Nos complace hacerle saber que su reserva ha sido creada con éxito.</p>
+                            <p><strong>Numero de reserva:</strong> %s</p>
+                            <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
+                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <br>
+                            <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+            """
                         .formatted(event.customer().name(), event.reservationNumber());
         log.info("\n{}", message);
         sendEmail(event.customer().email(), "Order Delivered Notification", message);
@@ -64,17 +100,35 @@ public class NotificationService {
     public void sendBookingCancelledNotification(BookingCancelledEvent event) {
         String message =
                 """
-                ===================================================
-                Order Cancelled Notification
-                ----------------------------------------------------
-                Dear %s,
-                Your order with orderNumber: %s has been cancelled.
-                Reason: %s
-
-                Thanks,
-                BookStore Team
-                ===================================================
-                """
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Reserva cancelada</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
+                <table width="100%%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #4CAF50; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h2>Reserva cancelada</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p>Estimad@ <strong>%s</strong>,</p>
+                            <p>Lamentamos informarle que su reserva ha sido cancelada.</p>
+                            <p><strong>Numero de reserva:</strong> %s</p>
+                            <p><strong>Motivo:</strong> %s</p>
+                            <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
+                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <br>
+                            <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+            """
                         .formatted(event.customer().name(), event.reservationNumber(), event.reason());
         log.info("\n{}", message);
         sendEmail(event.customer().email(), "Order Cancelled Notification", message);
@@ -83,18 +137,36 @@ public class NotificationService {
     public void sendBookingErrorEventNotification(BookingErrorEvent event) {
         String message =
                 """
-                ===================================================
-                Order Processing Failure Notification
-                ----------------------------------------------------
-                Hi %s,
-                The order processing failed for orderNumber: %s.
-                Reason: %s
-
-                Thanks,
-                BookStore Team
-                ===================================================
-                """
-                        .formatted(applicationProperties.supportEmail(), event.reservationNumber(), event.reason());
+            <!DOCTYPE html>
+            <html lang="es">
+            <head>
+                <meta charset="UTF-8">
+                <title>Reserva fallida</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; color: #333;">
+                <table width="100%%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px;">
+                    <tr>
+                        <td style="padding: 20px; text-align: center; background-color: #4CAF50; color: white; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                            <h2>Reserva fallida</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px;">
+                            <p>Estimad@ <strong>%s</strong>,</p>
+                            <p>Lamentamos informarle que su reserva ha sido fallida, vuelva a intentarlo por favor.</p>
+                            <p><strong>Numero de reserva:</strong> %s</p>
+                            <p><strong>Motivo:</strong> %s</p>
+                            <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
+                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <br>
+                            <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
+                        </td>
+                    </tr>
+                </table>
+            </body>
+            </html>
+            """
+                        .formatted(event.customer().name(), event.reservationNumber(), event.reason());
         log.info("\n{}", message);
         sendEmail(applicationProperties.supportEmail(), "Order Processing Failure Notification", message);
     }
@@ -106,7 +178,7 @@ public class NotificationService {
             helper.setFrom(applicationProperties.supportEmail());
             helper.setTo(recipient);
             helper.setSubject(subject);
-            helper.setText(content);
+            helper.setText(content, true);
             javaMailSender.send(mimeMessage);
             log.info("Email sent to: {}", recipient);
         } catch (Exception e) {
