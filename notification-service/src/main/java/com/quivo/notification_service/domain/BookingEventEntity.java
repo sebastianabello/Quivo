@@ -15,8 +15,8 @@ public class BookingEventEntity {
     @Column(nullable = false, unique = true)
     private String eventId;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;

@@ -58,7 +58,7 @@ public class NotificationService {
             """
                         .formatted(event.customer().name(), event.reservationNumber());
         log.info("\n{}", message);
-        sendEmail(event.customer().email(), "Order Created Notification", message);
+        sendEmail(event.customer().email(), "Reserva Creada", message);
     }
 
     public void sendBookingReservedNotification(BookingReservedEvent event) {
@@ -94,7 +94,7 @@ public class NotificationService {
             """
                         .formatted(event.customer().name(), event.reservationNumber());
         log.info("\n{}", message);
-        sendEmail(event.customer().email(), "Order Delivered Notification", message);
+        sendEmail(event.customer().email(), "Reserva Confirmada", message);
     }
 
     public void sendBookingCancelledNotification(BookingCancelledEvent event) {
@@ -122,7 +122,7 @@ public class NotificationService {
                             <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
                             <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
                             <br>
-                            <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
+                            <p style="font-size: 14px; color: #777;">- Equivo Quivo</p>
                         </td>
                     </tr>
                 </table>
@@ -131,7 +131,7 @@ public class NotificationService {
             """
                         .formatted(event.customer().name(), event.reservationNumber(), event.reason());
         log.info("\n{}", message);
-        sendEmail(event.customer().email(), "Order Cancelled Notification", message);
+        sendEmail(event.customer().email(), "Reserva Cancelada", message);
     }
 
     public void sendBookingErrorEventNotification(BookingErrorEvent event) {
@@ -159,7 +159,7 @@ public class NotificationService {
                             <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
                             <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
                             <br>
-                            <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
+                            <p style="font-size: 14px; color: #777;">- Equivo Quivo</p>
                         </td>
                     </tr>
                 </table>
@@ -168,7 +168,7 @@ public class NotificationService {
             """
                         .formatted(event.customer().name(), event.reservationNumber(), event.reason());
         log.info("\n{}", message);
-        sendEmail(applicationProperties.supportEmail(), "Order Processing Failure Notification", message);
+        sendEmail(applicationProperties.supportEmail(), "Reserva Fallida", message);
     }
 
     private void sendEmail(String recipient, String subject, String content) {
