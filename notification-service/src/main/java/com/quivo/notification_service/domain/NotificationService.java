@@ -47,7 +47,7 @@ public class NotificationService {
                             <p>Nos complace hacerle saber que su reserva esta siendo procesada.</p>
                             <p><strong>Numero de reserva:</strong> %s</p>
                             <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
-                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <p>Gracias por elegirnos!</p>
                             <br>
                             <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
                         </td>
@@ -83,7 +83,7 @@ public class NotificationService {
                             <p>Nos complace hacerle saber que su reserva ha sido creada con éxito.</p>
                             <p><strong>Numero de reserva:</strong> %s</p>
                             <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
-                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <p>Gracias por elegirnos!</p>
                             <br>
                             <p style="font-size: 14px; color: #777;">— Equivo Quivo</p>
                         </td>
@@ -120,7 +120,7 @@ public class NotificationService {
                             <p><strong>Numero de reserva:</strong> %s</p>
                             <p><strong>Motivo:</strong> %s</p>
                             <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
-                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <p>Gracias por elegirnos!</p>
                             <br>
                             <p style="font-size: 14px; color: #777;">- Equivo Quivo</p>
                         </td>
@@ -157,7 +157,7 @@ public class NotificationService {
                             <p><strong>Numero de reserva:</strong> %s</p>
                             <p><strong>Motivo:</strong> %s</p>
                             <p>Si tiene alguna pregunta o inquietud, no dude en responder a este correo electrónico.</p>
-                            <p>Gracias por elegirnos<strong>BookStore</strong>!</p>
+                            <p>Gracias por elegirnos!</p>
                             <br>
                             <p style="font-size: 14px; color: #777;">- Equivo Quivo</p>
                         </td>

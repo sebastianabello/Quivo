@@ -24,7 +24,7 @@ services:
     container_name: booking-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - BOOKINGS_INVENTORY_SERVICE_URL=http://inventory-service:8081
+      - BOOKINGS_INVENTORY_SERVICE_URL=http://api-gateway:8989/inventory
       - DB_URL=jdbc:postgresql://booking-db:5432/postgres
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
@@ -67,6 +67,21 @@ services:
         condition: service_healthy
       quivo-rabbitmq:
         condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700
+
+  api-gateway:
+    image: jabell0/quivo-api-gateway
+    container_name: api-gateway
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - INVENTORY_SERVICE_URL=http://inventory-service:8081
+      - BOOKING_SERVICE_URL=http://booking-service:8082
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
     deploy:
       resources:
         limits:

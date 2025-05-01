@@ -20,6 +20,7 @@
     <module>inventory-service</module>
     <module>booking-service</module>
     <module>notification-service</module>
+    <module>api-gateway</module>
   </modules>
 
   <build>
