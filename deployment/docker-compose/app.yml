@@ -1,7 +1,7 @@
 name: 'quivo'
 services:
   inventory-service:
-    image: quivo-inventory-service
+    image: jabell0/quivo-inventory-service
     container_name: inventory-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -20,7 +20,7 @@ services:
           memory: 700m
 
   booking-service:
-    image: quivo-booking-service
+    image: jabell0/quivo-booking-service
     container_name: booking-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
@@ -37,6 +37,33 @@ services:
     restart: unless-stopped
     depends_on:
       booking-db:
+        condition: service_healthy
+      quivo-rabbitmq:
+        condition: service_healthy
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  notification-service:
+    image: jabell0/quivo-notification-service
+    container_name: notification-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_URL=jdbc:postgresql://notification-db:5432/postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - RABBITMQ_HOST=quivo-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=guest
+      - RABBITMQ_PASSWORD=guest
+      - MAIL_HOST=smtp.gmail.com
+      - MAIL_PORT=587
+    ports:
+      - "8083:8083"
+    restart: unless-stopped
+    depends_on:
+      notification-db:
         condition: service_healthy
       quivo-rabbitmq:
         condition: service_healthy
