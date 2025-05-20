@@ -35,10 +35,11 @@ class BookingEntity {
     private Customer customer;
 
     @Embedded
-    @AttributeOverrides({
-        @AttributeOverride(name = "inDate", column = @Column(name = "check_in_date")),
-        @AttributeOverride(name = "outDate", column = @Column(name = "check_out_date"))
-    })
+    @AttributeOverrides(
+            value = {
+                @AttributeOverride(name = "in_date", column = @Column(name = "check_in_date")),
+                @AttributeOverride(name = "out_date", column = @Column(name = "check_out_date"))
+            })
     private Check checkDate;
 
     @Enumerated(EnumType.STRING)
