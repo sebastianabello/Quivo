@@ -1,7 +1,15 @@
 package com.quivo.booking_service.domain.model;
 
-import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDate;
 
 public record Check(
-        @NotBlank(message = "Check-in date is required") String in_date,
-        @NotBlank(message = "Check-out date is required") String out_date) {}
+        @NotNull(message = "Check-in date is required")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        LocalDate inDate,
+
+        @NotNull(message = "Check-out date is required")
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        LocalDate outDate) {}

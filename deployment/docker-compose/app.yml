@@ -59,7 +59,8 @@ services:
       - RABBITMQ_PASSWORD=guest
       - MAIL_HOST=smtp.gmail.com
       - MAIL_PORT=587
-
+      - MAIL_USERNAME=pruebagooplany@gmail.com
+      - MAIL_PASSWORD=hawrlpimyncngpvi
     ports:
       - "8083:8083"
     restart: unless-stopped

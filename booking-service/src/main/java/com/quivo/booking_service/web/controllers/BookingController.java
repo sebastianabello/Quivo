@@ -3,10 +3,7 @@ package com.quivo.booking_service.web.controllers;
 import com.quivo.booking_service.domain.BookingNotFoundException;
 import com.quivo.booking_service.domain.BookingService;
 import com.quivo.booking_service.domain.SecurityService;
-import com.quivo.booking_service.domain.model.BookingDTO;
-import com.quivo.booking_service.domain.model.BookingSummary;
-import com.quivo.booking_service.domain.model.CreateBookingRequest;
-import com.quivo.booking_service.domain.model.CreateBookingResponse;
+import com.quivo.booking_service.domain.model.*;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.slf4j.Logger;
@@ -51,4 +48,26 @@ public class BookingController {
                 .findUserReservation(username, reservationNumber)
                 .orElseThrow(() -> new BookingNotFoundException(reservationNumber));
     }
+
+    @PutMapping("/{reservationNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateBooking(
+            @PathVariable String reservationNumber,
+            @Valid @RequestBody UpdateBookingRequest request) {
+        String username = securityService.getLoginUser();
+        log.info("Updating booking {} for user {}", reservationNumber, username);
+        bookingService.updateBooking(reservationNumber, request);
+    }
+
+    @DeleteMapping("/{reservationNumber}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void cancelBooking(
+            @PathVariable String reservationNumber,
+            @RequestBody @Valid CancelBookingRequest request) {
+        String username = securityService.getLoginUser();
+        log.info("Cancelling booking {} for user {}", reservationNumber, username);
+        bookingService.cancelBooking(reservationNumber, request.reason());
+    }
+
+
 }
