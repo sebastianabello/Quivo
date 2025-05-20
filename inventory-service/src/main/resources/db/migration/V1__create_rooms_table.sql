@@ -1,12 +1,12 @@
-    create sequence room_id_seq start with 1 increment by 50;
+create sequence room_id_seq start with 1 increment by 50;
 
-create table rooms
-(
-    id bigint default nextval('room_id_seq') not null,
+create table rooms (
+    id          bigint default nextval('room_id_seq') not null,
     code        text not null unique,
     name        text not null,
     description text,
     image_url   text,
     price       numeric not null,
+    status      text not null default 'AVAILABLE',
     primary key (id)
 );

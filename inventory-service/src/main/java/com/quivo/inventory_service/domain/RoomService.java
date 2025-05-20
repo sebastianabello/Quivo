@@ -2,6 +2,9 @@ package com.quivo.inventory_service.domain;
 
 import com.quivo.inventory_service.ApplicationProperties;
 import java.util.Optional;
+
+import com.quivo.inventory_service.domain.model.CreateRoomRequest;
+import com.quivo.inventory_service.domain.model.UpdateRoomRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +18,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final ApplicationProperties applicationProperties;
 
-    public RoomService(RoomRepository roomRepository, ApplicationProperties applicationProperties) {
+     RoomService(RoomRepository roomRepository, ApplicationProperties applicationProperties) {
         this.roomRepository = roomRepository;
         this.applicationProperties = applicationProperties;
     }
@@ -40,4 +43,48 @@ public class RoomService {
     public Optional<Room> getRoomByCode(String code) {
         return roomRepository.findByCode(code).map(RoomMapper::toRoom);
     }
+
+    public void createRoom(CreateRoomRequest request) {
+        if (roomRepository.findByCode(request.code()).isPresent()) {
+            throw new IllegalArgumentException("Room with code already exists: " + request.code());
+        }
+
+        RoomEntity room = new RoomEntity();
+        room.setCode(request.code());
+        room.setName(request.name());
+        room.setDescription(request.description());
+        room.setImageUrl(request.imageUrl());
+        room.setPrice(request.price());
+        room.setStatus(request.status() != null ? request.status() : RoomStatus.AVAILABLE);
+
+        roomRepository.save(room);
+    }
+
+    public void updateRoom(String code, UpdateRoomRequest request) {
+        RoomEntity room = roomRepository.findByCode(code)
+                .orElseThrow(() -> new IllegalArgumentException("Room not found: " + code));
+
+        room.setName(request.name());
+        room.setDescription(request.description());
+        room.setImageUrl(request.imageUrl());
+        room.setPrice(request.price());
+        room.setStatus(request.status());
+
+        roomRepository.save(room);
+    }
+
+    public void deactivateRoom(String code) {
+        RoomEntity room = roomRepository.findByCode(code)
+                .orElseThrow(() -> new IllegalArgumentException("Room not found: " + code));
+
+        if (room.getStatus() == RoomStatus.INACTIVE) {
+            throw new IllegalStateException("Room is already inactive: " + code);
+        }
+
+        room.setStatus(RoomStatus.INACTIVE);
+        roomRepository.save(room);
+    }
+
+
+
 }
