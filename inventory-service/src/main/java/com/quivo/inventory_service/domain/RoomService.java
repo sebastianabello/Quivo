@@ -1,10 +1,9 @@
 package com.quivo.inventory_service.domain;
 
 import com.quivo.inventory_service.ApplicationProperties;
-import java.util.Optional;
-
 import com.quivo.inventory_service.domain.model.CreateRoomRequest;
 import com.quivo.inventory_service.domain.model.UpdateRoomRequest;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +17,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final ApplicationProperties applicationProperties;
 
-     RoomService(RoomRepository roomRepository, ApplicationProperties applicationProperties) {
+    RoomService(RoomRepository roomRepository, ApplicationProperties applicationProperties) {
         this.roomRepository = roomRepository;
         this.applicationProperties = applicationProperties;
     }
@@ -61,7 +60,8 @@ public class RoomService {
     }
 
     public void updateRoom(String code, UpdateRoomRequest request) {
-        RoomEntity room = roomRepository.findByCode(code)
+        RoomEntity room = roomRepository
+                .findByCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Room not found: " + code));
 
         room.setName(request.name());
@@ -74,7 +74,8 @@ public class RoomService {
     }
 
     public void deactivateRoom(String code) {
-        RoomEntity room = roomRepository.findByCode(code)
+        RoomEntity room = roomRepository
+                .findByCode(code)
                 .orElseThrow(() -> new IllegalArgumentException("Room not found: " + code));
 
         if (room.getStatus() == RoomStatus.INACTIVE) {
@@ -84,7 +85,4 @@ public class RoomService {
         room.setStatus(RoomStatus.INACTIVE);
         roomRepository.save(room);
     }
-
-
-
 }

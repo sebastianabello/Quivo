@@ -41,9 +41,7 @@ class RoomController {
 
     @PutMapping("/{code}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateRoom(
-            @PathVariable String code,
-            @Valid @RequestBody UpdateRoomRequest request) {
+    public void updateRoom(@PathVariable String code, @Valid @RequestBody UpdateRoomRequest request) {
         roomService.updateRoom(code, request);
     }
 
@@ -52,6 +50,4 @@ class RoomController {
     public void deactivateRoom(@PathVariable String code) {
         roomService.deactivateRoom(code);
     }
-
-
 }

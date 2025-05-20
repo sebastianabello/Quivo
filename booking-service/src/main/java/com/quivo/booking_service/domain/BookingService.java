@@ -1,13 +1,11 @@
 package com.quivo.booking_service.domain;
 
 import com.quivo.booking_service.domain.model.*;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -76,23 +74,26 @@ public class BookingService {
     }
 
     public void updateBooking(String reservationNumber, UpdateBookingRequest request) {
-        BookingEntity booking = bookingRepository.findByReservationNumber(reservationNumber)
-            .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+        BookingEntity booking = bookingRepository
+                .findByReservationNumber(reservationNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
 
         if (booking.getStatus() == BookingStatus.CANCELLED) {
             throw new IllegalStateException("Cannot update a cancelled booking");
         }
 
         // Convertir los BookingItem a BookingItemEntity
-        Set<BookingItemEntity> updatedItems = request.items().stream().map(item -> {
-            BookingItemEntity entity = new BookingItemEntity();
-            entity.setCode(item.code());
-            entity.setName(item.name());
-            entity.setPrice(item.price());
-            entity.setGuest(item.guest());
-            entity.setReservation(booking);
-            return entity;
-        }).collect(Collectors.toSet());
+        Set<BookingItemEntity> updatedItems = request.items().stream()
+                .map(item -> {
+                    BookingItemEntity entity = new BookingItemEntity();
+                    entity.setCode(item.code());
+                    entity.setName(item.name());
+                    entity.setPrice(item.price());
+                    entity.setGuest(item.guest());
+                    entity.setReservation(booking);
+                    return entity;
+                })
+                .collect(Collectors.toSet());
 
         booking.setReservationItems(updatedItems);
         booking.setCustomer(request.customer());
@@ -104,8 +105,9 @@ public class BookingService {
     }
 
     public void cancelBooking(String reservationNumber, String reason) {
-        BookingEntity booking = bookingRepository.findByReservationNumber(reservationNumber)
-            .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+        BookingEntity booking = bookingRepository
+                .findByReservationNumber(reservationNumber)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
 
         if (booking.getStatus() == BookingStatus.CANCELLED) {
             throw new IllegalStateException("Booking already cancelled");
@@ -120,9 +122,4 @@ public class BookingService {
         BookingCancelledEvent cancelledEvent = BookingEventMapper.buildBookingCancelledEvent(booking, reason);
         bookingEventService.save(cancelledEvent);
     }
-
-
-
-
-
 }

@@ -2,7 +2,6 @@ package com.quivo.booking_service.domain;
 
 import com.quivo.booking_service.domain.model.BookingStatus;
 import com.quivo.booking_service.domain.model.BookingSummary;
-
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

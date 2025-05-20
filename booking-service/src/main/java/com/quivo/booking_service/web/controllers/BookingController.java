@@ -52,8 +52,7 @@ public class BookingController {
     @PutMapping("/{reservationNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBooking(
-            @PathVariable String reservationNumber,
-            @Valid @RequestBody UpdateBookingRequest request) {
+            @PathVariable String reservationNumber, @Valid @RequestBody UpdateBookingRequest request) {
         String username = securityService.getLoginUser();
         log.info("Updating booking {} for user {}", reservationNumber, username);
         bookingService.updateBooking(reservationNumber, request);
@@ -62,12 +61,9 @@ public class BookingController {
     @DeleteMapping("/{reservationNumber}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void cancelBooking(
-            @PathVariable String reservationNumber,
-            @RequestBody @Valid CancelBookingRequest request) {
+            @PathVariable String reservationNumber, @RequestBody @Valid CancelBookingRequest request) {
         String username = securityService.getLoginUser();
         log.info("Cancelling booking {} for user {}", reservationNumber, username);
         bookingService.cancelBooking(reservationNumber, request.reason());
     }
-
-
 }
